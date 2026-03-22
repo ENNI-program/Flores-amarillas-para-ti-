@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flores Amarillas 🌻</title>
+
+<style>
+
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:black;
+    overflow:hidden;
+    font-family:'Segoe UI',sans-serif;
+}
+
+/* estrellas */
+.estrella{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    animation:parpadeo 2s infinite alternate;
+}
+@keyframes parpadeo{
+    from{opacity:0.2;}
+    to{opacity:1;}
+}
+
+/* carta */
+.carta{
+    background:rgba(255,255,255,0.9);
+    padding:25px;
+    border-radius:20px;
+    text-align:center;
+    width:250px;
+    box-shadow:0 10px 30px rgba(255,255,0,0.3);
+    animation:aparecer 2s ease;
+    z-index:10;
+}
+
+h1{ color:#FFD700; font-size:22px; }
+p{ color:#333; font-size:15px; }
+
+@keyframes aparecer{
+    from{transform:scale(0);opacity:0;}
+    to{transform:scale(1);opacity:1;}
+}
+
+/* MINI CARTA */
+.mini-carta{
+    position:absolute;
+    bottom:60px;
+    right:20px;
+    background:rgba(255,255,255,0.9);
+    padding:15px;
+    border-radius:15px;
+    width:180px;
+    font-size:13px;
+    text-align:center;
+    box-shadow:0 5px 15px rgba(0,0,0,0.3);
+    opacity:0;
+    transform:scale(0);
+    transition:0.3s;
+    pointer-events:none;
+}
+
+.mini-carta.activa{
+    opacity:1;
+    transform:scale(1);
+}
+
+/* girasol */
+.sunflower{
+    position:absolute;
+    transform:translate(-50%,-50%);
+    animation:girar 30s linear infinite;
+}
+
+.grande{ width:420px; height:420px; top:50%; left:50%; }
+.peque{ width:130px; height:130px; }
+
+.tl{ top:10%; left:10%; }
+.tr{ top:10%; left:90%; }
+
+/* centro */
+.center{
+    position:absolute;
+    width:35%;
+    height:35%;
+    border-radius:50%;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    background:radial-gradient(circle,#3b2500,#1a1200);
+    opacity:0;
+    animation:aparecerCentro 1s forwards, brillo 3s infinite;
+    animation-delay:2.5s;
+}
+
+/* pétalos */
+.petal{
+    position:absolute;
+    width:18%;
+    height:45%;
+    background:linear-gradient(to top,#ffcc00,#FFD700,#fff176);
+    border-radius:50% 50% 40% 40%;
+    top:50%;
+    left:50%;
+    transform-origin:center bottom;
+    opacity:0;
+    animation:aparecerPetalo 0.6s ease forwards;
+}
+
+/* distribución pétalos */
+.petal:nth-child(1){transform:translate(-50%,-100%) rotate(0deg);animation-delay:0s;}
+.petal:nth-child(2){transform:translate(-50%,-100%) rotate(30deg);animation-delay:0.2s;}
+.petal:nth-child(3){transform:translate(-50%,-100%) rotate(60deg);animation-delay:0.4s;}
+.petal:nth-child(4){transform:translate(-50%,-100%) rotate(90deg);animation-delay:0.6s;}
+.petal:nth-child(5){transform:translate(-50%,-100%) rotate(120deg);animation-delay:0.8s;}
+.petal:nth-child(6){transform:translate(-50%,-100%) rotate(150deg);animation-delay:1s;}
+.petal:nth-child(7){transform:translate(-50%,-100%) rotate(180deg);animation-delay:1.2s;}
+.petal:nth-child(8){transform:translate(-50%,-100%) rotate(210deg);animation-delay:1.4s;}
+.petal:nth-child(9){transform:translate(-50%,-100%) rotate(240deg);animation-delay:1.6s;}
+.petal:nth-child(10){transform:translate(-50%,-100%) rotate(270deg);animation-delay:1.8s;}
+.petal:nth-child(11){transform:translate(-50%,-100%) rotate(300deg);animation-delay:2s;}
+.petal:nth-child(12){transform:translate(-50%,-100%) rotate(330deg);animation-delay:2.2s;}
+
+/* hojas */
+.leaf{
+    position:absolute;
+    width:30%;
+    height:18%;
+    background:linear-gradient(to right,#1b5e20,#4caf50);
+    border-radius:50%;
+    top:70%;
+}
+.leaf1{ left:5%; transform:rotate(-30deg);}
+.leaf2{ right:5%; transform:rotate(30deg);}
+
+/* ramos */
+.ramo{
+    position:absolute;
+    bottom:-200px;
+    display:flex;
+    gap:20px;
+    animation:subir 2s ease forwards;
+}
+.ramo.izq{ left:5%; animation-delay:1s;}
+.ramo.der{ right:5%; animation-delay:1.5s;}
+
+@keyframes subir{
+    from{ bottom:-200px; opacity:0;}
+    to{ bottom:5%; opacity:1;}
+}
+
+/* tallo */
+.tallo{
+    position:absolute;
+    width:5px;
+    height:90px;
+    background:green;
+    bottom:-60px;
+    left:50%;
+    transform:translateX(-50%);
+}
+
+/* animaciones */
+@keyframes aparecerPetalo{
+    from{opacity:0; transform:scale(0.2);}
+    to{opacity:1;}
+}
+@keyframes aparecerCentro{
+    from{opacity:0; transform:translate(-50%,-50%) scale(0);}
+    to{opacity:1;}
+}
+@keyframes girar{
+    from{ transform:translate(-50%,-50%) rotate(0deg);}
+    to{ transform:translate(-50%,-50%) rotate(360deg);}
+}
+@keyframes brillo{
+    0%{ filter:brightness(1);}
+    50%{ filter:brightness(1.3);}
+    100%{ filter:brightness(1);}
+}
+
+/* flores flotantes */
+.flor{
+    position:absolute;
+    font-size:20px;
+    animation:flotar 6s linear infinite;
+}
+@keyframes flotar{
+    0%{transform:translateY(100vh);opacity:0;}
+    50%{opacity:1;}
+    100%{transform:translateY(-10vh);opacity:0;}
+}
+
+.boton{
+    margin-top:8px;
+    padding:8px 15px;
+    border:none;
+    border-radius:10px;
+    background:#FFD700;
+    color:black;
+    cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="mini-carta" id="miniCarta">
+💛 Esta canción es solo para ti...  
+creo que puede ser bastante obvio  quien soy o tal vez no de todos modos te amo. 🌻✨
+</div>
+
+<script>
+// estrellas
+for(let i=0;i<120;i++){
+    let s=document.createElement("div");
+    s.className="estrella";
+    s.style.left=Math.random()*100+"vw";
+    s.style.top=Math.random()*100+"vh";
+    document.body.appendChild(s);
+}
+
+// girasol
+function girasol(clases, hojas=true, tallo=true){
+    return `
+    <div class="sunflower ${clases}">
+        <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+        <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+        <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+        <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+        <div class="center"></div>
+        ${hojas ? '<div class="leaf leaf1"></div><div class="leaf leaf2"></div>' : ''}
+        ${tallo ? '<div class="tallo"></div>' : ''}
+    </div>`;
+}
+
+// ramos
+function ramo(pos){
+    return `
+    <div class="ramo ${pos}">
+        ${girasol("peque",true,true)}
+        ${girasol("peque",true,true)}
+        ${girasol("peque",true,true)}
+    </div>`;
+}
+
+document.write(
+    girasol("grande",true,false) +
+    girasol("peque tl",false,false) +
+    girasol("peque tr",false,false) +
+    ramo("izq") +
+    ramo("der")
+);
+</script>
+
+<div class="carta">
+<h1>🌻 21 de Marzo 🌻</h1>
+<p>Flores amarillas para ti 💛<br><br> Tú eres esa hermosa flor amarilla que florece en mi alma y crea la más hermosa primavera en mi vida ✨</p>
+
+<button class="boton" onclick="toggleMusica(this)">▶️ Música</button>
+<button class="boton" onclick="togglePista(this)">▶️ Pista</button>
+</div>
+
+<audio id="musica" loop>
+<source src="floresamarillas.mp3" type="audio/mp3">
+</audio>
+
+<audio id="pista" loop>
+<source src="pista.mp3" type="audio/mp3">
+</audio>
+
+<script>
+const musica = document.getElementById("musica");
+const pista = document.getElementById("pista");
+const miniCarta = document.getElementById("miniCarta");
+
+function toggleMusica(btn){
+    if(musica.paused){
+        pista.pause();
+        document.querySelectorAll(".boton")[1].innerText="▶️ Pista";
+
+        musica.play();
+        btn.innerText="⏸️ Música";
+
+        miniCarta.classList.remove("activa");
+    }else{
+        musica.pause();
+        btn.innerText="▶️ Música";
+    }
+}
+
+function togglePista(btn){
+    if(pista.paused){
+        musica.pause();
+        document.querySelectorAll(".boton")[0].innerText="▶️ Música";
+
+        pista.play();
+        btn.innerText="⏸️ Pista";
+
+        miniCarta.classList.add("activa");
+    }else{
+        pista.pause();
+        btn.innerText="▶️ Pista";
+
+        miniCarta.classList.remove("activa");
+    }
+}
+
+// flores flotantes
+function crearFlor(){
+    const flor=document.createElement("div");
+    flor.classList.add("flor");
+    flor.innerHTML="🌻";
+    flor.style.left=Math.random()*100+"vw";
+    flor.style.fontSize=(Math.random()*25+15)+"px";
+    flor.style.animationDuration=(Math.random()*3+4)+"s";
+    document.body.appendChild(flor);
+    setTimeout(()=>flor.remove(),6000);
+}
+setInterval(crearFlor,300);
+
+</script>
+
+</body>
+</html>
